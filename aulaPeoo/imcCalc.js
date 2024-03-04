@@ -5,4 +5,11 @@ function calcular(){
 
     document.getElementById("result").innerHTML = 
         "Valor IMC = " + imc.toFixed(2);
+
+        let situ;
+        if (imc <= 18.5){ situ = "Magreza"
+        } else if (imc >= 18.5 && imc <= 24.9){
+                "Normal"
+            }
+        
 }
