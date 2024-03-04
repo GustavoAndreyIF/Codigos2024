@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Calculadora IMC</title>
+</head>
+<body>
+    <form>
+        <label for="hname">Altura (Metros):</label><br>
+        <input type="number" id="altu" name="hname" step="0.01"><br>
+        <label for="mname">Peso (Kg):</label><br>
+        <input type="number" id="mass" name="mname" step="0.01"><br>
+        <input type="button" onclick="calcular()" value="Calcular">
+        <input type="reset">
+      </form>
+      <div id="result"></div>
+      <script src="imcCalc.js"></script>
+</body>
+</html>
