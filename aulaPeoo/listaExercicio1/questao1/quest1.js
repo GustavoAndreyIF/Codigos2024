@@ -16,6 +16,6 @@ function calcular(){
         if (idade == 0){
                 document.getElementById("result").innerHTML = `voce tem ${mes} meses`
         } else{
-                    document.getElementById("result").innerHTML = `voce tem ${idade} anos e ${mes} meses`
+                    document.getElementById("result").innerHTML = `voce tem ${idade} anos`
           }}
 }
