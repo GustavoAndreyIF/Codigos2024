@@ -1,9 +1,9 @@
 function calc(){
     let list = document.querySelector("#list").value
     list = list.replace(/ /g, "")
+ 
 
-    
-    document.getElementById('result').innerHTML = `${list}`
+    document.getElementById('result').innerHTML = `${list.sort()}`
 }
 const input = document.getElementById('larg');
 
