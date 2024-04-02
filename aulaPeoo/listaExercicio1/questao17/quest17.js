@@ -1,19 +1,16 @@
 function cle(){
-    let list = document.querySelector("#list").value
-
+    let texto = document.querySelector("#texto").value
+    let pl = document.querySelector("#palavra").value
+    let plsub = document.querySelector("#palavrasub").value
+    while(true){
+        if (texto.includes(pl)){
+            texto = texto.replace(pl, plsub)
+        } else {
+            break
+        }
+    }
     
-    let pa = list
-    list = list.split("")
-    list = list.reverse()
-    list = list.join()
-    list = list.replace(/,/g, "")
-    console.log(typeof list)
-    console.log(typeof pa)
-    if (pa == list){
-        document.getElementById('result').innerHTML = `${list} e um palíndromo` 
-    } else(
-        document.getElementById('result').innerHTML = `${list} nao e palíndromo`
-    )
-
-    
+    document.getElementById('result').innerHTML = 
+    `<strong>o seu texto antigo:</strong> ${texto}`
+    console.log(texto)    
 }
