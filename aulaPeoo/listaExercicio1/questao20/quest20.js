@@ -17,21 +17,31 @@ function vrsenha(){
     if (senha === vrsenha && regex.test(senha) == true){
         return true
     } else {
+        document.getElementById("senhaInvalido").innerHTML = `Senha inserido invalida. 
+        escreva 8 caracteres que contenha numeros e letras e escreva a senha igual`
         return false
     }
 }
 function vrcamps(){
     let nome = document.querySelector("#username").value
-    console.log(nome)
-    //escrever um codigo para verificar se a string de nome, email e senha estao vazios.
-    //opcoes; teste de regex, metodo search ou tentar um if com string vazia.
+    let senha = document.querySelector("#userpassword").value
+    let vrsenha = document.querySelector("#userpasswordconfirm").value
+    let email = document.querySelector("#useremail").value;
+
+    if (nome !== "" && senha !== "" && vrsenha !== "" && email !== ""){
+        return true
+    } else{
+        return false
+    }
 }
 function cheque(){
-    vrcamps()
-    /* let vremail1 = vremail()
+    let vremail1 = vremail()
     let vrsenha1 = vrsenha()
     let vrcamps1 = vrcamps()
     if (vremail1 == true && vrsenha1 == true && vrcamps1 == true){
         document.querySelector("#result").innerHTML = `SUCESSO`
-    } */
+    } else{
+        document.querySelector("#result").innerHTML = `DEU RUIM`
+        
+    }
 }
