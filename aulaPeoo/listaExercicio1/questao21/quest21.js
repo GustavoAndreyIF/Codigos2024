@@ -1,15 +1,18 @@
-function outraOp(){
+/* function outraOp(){
     const selecao = document.getElementById("categoria").selectedIndex;
-    const container = document.getElementById("container")
-
-    let outinput = document.createElement("input")
-    console.log(outinput)
+    const container = document.getElementById("divContainer")
+    const outinput = document.createElement("input")
     outinput.setAttribute("type", "text")
     outinput.setAttribute("id", "outinput")
-    console.log(outinput)
-    if(selecao == 1){
-        container.appendChild(outinput)
-    } else if(outinput){
-        container.removeChild(outinput)
+    
+    if(selecao == 0){
+        const outinputremove = document.getElementById("outinput")
+        outinputremove.remove()
     }
-}
+    if(selecao == 1){
+        document.body.insertBefore(outinput, container)
+    }
+} */
+
+
+/*Construir script para adicionar valores dentro de uma tabela, pode usar innerhtml ou insertBefore*/
