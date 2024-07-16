@@ -5,7 +5,7 @@
 </head>
 <body>
     <label for="produto">Nome do produto</label><br>
-    <input type="text" id="produto"><br>
+    <input type="text" id="nome"><br>
 
     <label for="preco">Preço do produto</label><br>
     <input type="number" id="preco"><br>
@@ -20,22 +20,23 @@
     <label for="descricao">Descrição do produto</label><br>
     <input type="text" id="descricao"><br><br>
 
-    <button onclick="">Registrar</button>
+    <button onclick="registrarTabela()">Registrar</button>
 
-    <table>
+    <table border="1">
         <thead>
             <tr>
               <th>Nome</th>
               <th>Preço</th>
               <th>Categoria</th>
+              <th>descrição</th>
             </tr>
         </thead>
-        <tbody>
-            
+        <tbody id="tabela">
+           
         </tbody>
     </table>
 
-    <div id="divContainer"></div>
+
     <script src="quest21.js"></script>
 </body>
 </html>
