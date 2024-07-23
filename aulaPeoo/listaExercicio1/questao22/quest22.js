@@ -25,7 +25,7 @@ function detectarClick(celula, linha, coluna){
         gameOver = true
         return
     }
-    if (checarVitoria(jogador) === "empate"){
+    if (empate()){
         document.querySelector("#vitoria").innerHTML = `Empate`
         gameOver = true
         return
@@ -47,5 +47,21 @@ function checarVitoria(chec){
     if (jogo[0][2] === chec && jogo[1][1] === chec && jogo[2][0] === chec){
         return true}
 
-    return false
+    return
+}
+
+function empate(){
+    let empate = 0
+
+    for (i = 0; i < 3; i++) {
+        if (jogo[i][0] !== "" && jogo[i][1] !== "" && jogo[i][2] !== ""){
+            empate++ 
+        }
+        if (jogo[0][i] !== "" && jogo[1][i] !== "" && jogo[2][i] !== ""){
+            empate++
+        }
+    }
+    if (empate === 6){
+        return true
+    }
 }
