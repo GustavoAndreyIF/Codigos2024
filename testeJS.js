@@ -1,5 +1,12 @@
-// eu acho que e um objeto
-var usuario = {nome: "user123",
-email: "FulanoDeTal@legal.com", 
-senha: "admin", 
-comidaFavorita: "pizza"}
+let leticia = {
+    nivelBrisa: 0,
+    aumentarBrisa: function(){
+        this.nivelBrisa += 10
+    }
+}
+leticia.aumentarBrisa()
+leticia.aumentarBrisa()
+leticia.aumentarBrisa()
+leticia.aumentarBrisa()
+leticia.aumentarBrisa()
+console.log(leticia.nivelBrisa)
