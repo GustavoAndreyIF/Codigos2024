@@ -1,12 +1,15 @@
-let leticia = {
-    nivelBrisa: 0,
-    aumentarBrisa: function(){
-        this.nivelBrisa += 10
+class produtos{
+    constructor(nome, preco, categoria){
+        this.nome = nome
+        this.preco = preco
+        this.categoria = categoria
+    }
+    mostrar() {
+        console.log(`nome: ${this.nome}`)
+        console.log(`preço: R$${this.preco}`)
+        console.log(`categoria: ${this.categoria}`)
     }
 }
-leticia.aumentarBrisa()
-leticia.aumentarBrisa()
-leticia.aumentarBrisa()
-leticia.aumentarBrisa()
-leticia.aumentarBrisa()
-console.log(leticia.nivelBrisa)
+
+let produto1 = new produtos('agua', 1.99, 'bebida')
+console.log(produto1.mostrar())
