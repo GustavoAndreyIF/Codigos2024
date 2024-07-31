@@ -1,5 +1,5 @@
-#nLetras = int(input())
-#palavra = str(input())
+nLetras = int(input())
+palavra = str(input())
 
 def poligrama(n, p):
     metade1 = list(p[:n//2])
@@ -15,5 +15,5 @@ def poligrama(n, p):
         return "".join(metade)
     return "*"
 
-resultado = poligrama(5, "xxxxx")
+resultado = poligrama(nLetras, palavra)
 print(resultado)
