@@ -20,4 +20,4 @@ class produtosPereciveis(produtos):
         print(f"validade: {self.validade}")
 
 produto2 = produtosPereciveis("mel", 5.99, "doce", "sem validade")
-print(produto2.mostrarpd())
+print(produto2)
