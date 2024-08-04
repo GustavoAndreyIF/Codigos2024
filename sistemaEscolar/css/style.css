@@ -1,0 +1,54 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Change to Roboto for a clean look */
+    background-color: #f8f8f8; /* Subtle background color */
+
+}
+
+.container {
+    max-width: 700px; /* Increase width for a more spacious feel */
+    margin: 0 auto;
+    padding: 30px; /* Increase padding */
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow */
+    border-radius: 8px; /* Add rounded corners */
+    text-align: center;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 32px; /* Larger font size */
+    font-weight: bold;
+    color: #333; /* Darker color for better contrast */
+}
+
+main {
+    text-align: left; /* Align menu items to the left */
+}
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 15px 0; /* More space between items */
+}
+
+.menu a {
+    text-decoration: none;
+    color: #555; /* Darker color */
+    font-size: 19px; /* Slightly larger font size */
+    padding: 10px 20px; /* Add padding for a more spacious feel */
+    border-radius: 5px; /* Rounded corners for links */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    display: block; /* Make links fill the entire list item width */
+    width: 100%; /* Full width links */
+}
+
+.menu a:hover {
+    background-color: #e8e8e8; /* Subtle background change on hover */
+    color: #333; /* Darker color on hover */
+}
