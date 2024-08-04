@@ -34,12 +34,14 @@ class SistemaEscolar {
             this.salvarLocal()
         }
     }
-    excluir(matricula){
+    excluir(matricula, nome, idade){
         this.estudantes = this.estudantes.filter(
         function(estudante){
-            return estudante.matricula !== matricula
+            return !(estudante.matricula === matricula && estudante.nome === nome && estudante.idade === idade)
         }
         )
+        
+        
         this.salvarLocal()
     }
     listar(){
@@ -68,19 +70,21 @@ function exibirEstudantes(){
     estudantes.forEach(estudante => {
         const linha = document.createElement("tr")
         linha.innerHTML = `
-        <td><input type="checkbox"></td>
         <td>${estudante.nome}</td>
         <td>${estudante.idade}</td>
         <td>${estudante.matricula}</td>
+        <td><button class="botaoExcluir" onclick='excluirAluno("${estudante.matricula}", "${estudante.nome}", "${estudante.idade}")'>Excluir</button>
+        <br><a href="../pages/atualizar.html" class="voltar">Editar</a>
+        </td>
         `
         tabela.appendChild(linha)     
     });
 
 }
 
-function selecionarTodos(checar){
-    const caixas = document.querySelectorAll(`input[type="checkbox"]`)
-    caixas.forEach(checkbox => checkbox.checked = checar.checked)
+function excluirAluno(matricula, nome, idade){
+    sistema.excluir(matricula, nome, idade)
+    exibirEstudantes()
 }
 
     document.addEventListener("DOMContentLoaded", exibirEstudantes())
