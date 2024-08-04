@@ -1,17 +1,17 @@
 body {
-    font-family: 'Roboto', sans-serif; /* Change to Roboto for a clean look */
-    background-color: #f8f8f8; /* Subtle background color */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f8f8;
     margin: 0;
     padding: 20px;
 }
 
 .container {
-    max-width: 700px; /* Increase width for a more spacious feel */
+    max-width: 700px;
     margin: 0 auto;
-    padding: 30px; /* Increase padding */
+    padding: 30px;
     background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow */
-    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
     text-align: center;
 }
 
@@ -20,13 +20,13 @@ header {
 }
 
 .title {
-    font-size: 32px; /* Larger font size */
+    font-size: 32px;
     font-weight: bold;
-    color: #333; /* Darker color for better contrast */
+    color: #333;
 }
 
 main {
-    text-align: left; /* Align menu items to the left */
+    text-align: left;
 }
 
 .menu {
@@ -35,23 +35,23 @@ main {
 }
 
 .menu li {
-    margin: 15px 0; /* More space between items */
+    margin: 15px 0;
 }
 
 .menu a {
     text-decoration: none;
-    color: #555; /* Darker color */
-    font-size: 19px; /* Slightly larger font size */
-    padding: 10px 20px; /* Add padding for a more spacious feel */
-    border-radius: 5px; /* Rounded corners for links */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
-    display: block; /* Make links fill the entire list item width */
-    width: 100%; /* Full width links */
+    color: #555;
+    font-size: 19px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
 }
 
 .menu a:hover {
-    background-color: #e8e8e8; /* Subtle background change on hover */
-    color: #333; /* Darker color on hover */
+    background-color: #e8e8e8;
+    color: #333;
 }
 
 /* Form Styles */
@@ -65,7 +65,7 @@ form {
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Adjust spacing between label and input */
+    gap: 5px;
 }
 
 label {
@@ -91,11 +91,10 @@ button {
     align-self: center;
 }
 
-
-a.voltar { /* Style for the "Voltar" button */
+a.voltar {
     text-decoration: none;
-    color: #333; /* Darker color */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
+    color: #333;
+    transition: background-color 0.3s ease;
     text-align: center;
     padding: 8px 15px;
     border-radius: 5px;
@@ -104,4 +103,37 @@ a.voltar { /* Style for the "Voltar" button */
     transition: background-color 0.3s ease;
     width: 50%;
     align-self: center;
+}
+
+/* Table Styles */
+.tabela-estilizada {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-estilizada thead {
+    background-color: #f4f4f4;
+}
+
+.tabela-estilizada th, .tabela-estilizada td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.tabela-estilizada th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-align: left;
+}
+
+.tabela-estilizada tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-estilizada tbody tr:hover {
+    background-color: #f1f1f1;
 }
