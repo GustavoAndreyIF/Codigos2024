@@ -57,7 +57,11 @@ function cadastrarAluno(){
     const idade = document.querySelector("#idade").value
     const matricula = document.querySelector("#matricula").value
 
-    sistema.cadastrar(matricula, nome, idade)
+    if(nome != "" && idade != "" && matricula != ""){
+        sistema.cadastrar(matricula, nome, idade)
+    } else{
+        alert("Preencha todos os campos antes de o cadastrar")
+    }
     exibirEstudantes()
 }
 
@@ -83,8 +87,53 @@ function exibirEstudantes(){
 }
 
 function excluirAluno(matricula, nome, idade){
-    sistema.excluir(matricula, nome, idade)
+    if(confirm("Tem  certeza que deseja excluir este aluno?")){
+        sistema.excluir(matricula, nome, idade)
+    }
     exibirEstudantes()
 }
 
-    document.addEventListener("DOMContentLoaded", exibirEstudantes())
+function selecionarAluno(){
+    const estudantes = sistema.listar()
+    const selecao = document.querySelector("#selecao")
+    
+    selecao.innerHTML = ""
+    
+    estudantes.forEach(estudante => {
+        const opcao = document.createElement("option")
+        opcao.value = estudante.matricula
+        opcao.textContent = estudante.nome
+        selecao.appendChild(opcao)     
+    });
+
+}
+
+function atualizarCadastro(){
+    const matriculaEstudante = document.querySelector("#selecao")
+    const valorSelecionado = matriculaEstudante.value
+
+    const nome = document.querySelector("#nome").value
+    const idade = document.querySelector("#idade").value
+    const matricula = document.querySelector("#matricula").value
+    if(nome != "" && idade != "" && matricula != ""){
+        if(confirm("Deseja mesmo atualizar os dados desse cadastro?")){
+            sistema.atualizar(valorSelecionado, matricula, nome, idade)
+        }
+        
+    } else{
+        alert("Preencha todos os campos antes de atualizar o cadastro")
+        exibirDados()
+    }
+    
+}
+
+function voltarPagina() {
+    window.history.back();
+}
+
+function exibirDados(){
+    exibirEstudantes()
+    selecionarAluno()
+    
+}
+document.addEventListener("DOMContentLoaded", exibirDados())
