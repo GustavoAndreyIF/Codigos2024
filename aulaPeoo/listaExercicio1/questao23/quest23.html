@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+</head>
+<body>
+    <div id="container" class="container">
+        <label for="nomeProduto">Nome do produto:</label><br>
+        <input type="text" id="nomeProduto" required placeholder="Digite o nome do produto"><br>
+
+        <label for="quantProduto">Quantidade do produto:</label><br>
+        <input type="number" id="quantProduto" required placeholder="Digite a quantidade do produto"><br>
+
+        <label for="categoProduto">Categoria do produto:</label><br>
+        <input type="text" id="categoProduto" required placeholder="Digite a categoria de produto"><br>
+
+        <button type="button" onclick="cadastrarProduto()">Registrar produto</button>
+    </div>
+    <div id="tabelaDiv" class="tabelaDiv">
+        <h1>Dados dos Estudantes</h1>
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>categoria</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table><br>
+    </div>
+    <script src="quest23.js"></script>
+</body>
+</html>
