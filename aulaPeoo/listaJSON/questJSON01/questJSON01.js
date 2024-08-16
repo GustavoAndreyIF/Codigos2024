@@ -27,7 +27,7 @@ async function fetchData(urls) {
 fetchData(urls)
 
 function exibirPosts(){
-    let dataPosts = localStorage.getItem("apiDados1")
+    let dataPosts = localStorage.getItem("apiDados0")
     let posts = JSON.parse(dataPosts)
     const divposts = document.querySelector("#posts")
     divposts.innerHTML = ""
