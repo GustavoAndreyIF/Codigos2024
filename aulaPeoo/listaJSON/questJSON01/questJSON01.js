@@ -24,24 +24,34 @@ async function fetchData(urls) {
     }
 }
 
-fetchData(urls)
-
-function exibirPosts(){
+async function exibirPosts(){
+    await fetchData(urls)
     let dataPosts = localStorage.getItem("apiDados0")
+    let dataUsers = localStorage.getItem("apiDados3")
+    let dataPhotos = localStorage.getItem("apiDados2")
     let posts = JSON.parse(dataPosts)
+    let users = JSON.parse(dataUsers)
+    let photos = JSON.parse(dataPhotos)
     const divposts = document.querySelector("#posts")
     divposts.innerHTML = ""
 
     posts.forEach(dadospost => {
-    const topico = document.createElement("div")
-    topico.innerHTML = `
-    <div id="${dadospost.id}">
-        <p>UserID: ${dadospost.userId}</p>
-        <p>${dadospost.title}</p>
-        <p>${dadospost.body}</p>
-    </div><br>
-    `
-    divposts.appendChild(topico)
-});
+        const topico = document.createElement("div")
+        topico.innerHTML = `
+        <div id="${dadospost.id} style="padding: 10px 0px;">
+            <div id="userIcon" style="display: flex; align-items: center;">
+                <img src="${photos[dadospost.id - 1]["url"]}" style="width: 50px; border-radius: 50%; margin: 0px 5px 0px 0px">
+                <div>
+                    <p style="margin: 0 0 0 0; font-style: bold:"><b>${users[dadospost.id - 1]["name"]}</b></p>
+                    <p style="margin: 0 0 0 0;">${users[dadospost.id - 1]["username"]}</p>
+                </div>
+            </div>
+            <p style="font-size: 24px ;padding: 10px 0px 0px 0px; margin: 0 0 0 0"><b>${dadospost.title}</b></p>
+            <p style="font-size: 18px ;padding: 5px 0px 0px 0px; margin: 0 0 0 0">${dadospost.body}</p>
+        </div><br>  
+        `
+        divposts.appendChild(topico)
+    }
+);
 }
 exibirPosts()
