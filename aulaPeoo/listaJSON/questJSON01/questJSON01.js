@@ -51,7 +51,7 @@ async function exibirPosts() {
 
             const topico = document.createElement("div")
             topico.innerHTML = `
-            <div id="${dadospost.id}" style="padding: 10px 0px;">
+            <div style="padding: 10px 0px;">
                 <div id="userIcon" style="display: flex; align-items: center;">
                     <img src="${photo ? photo.url : "default-image.png"}" style="width: 50px; border-radius: 50%; margin: 0px 5px 0px 0px">
                     <div>
@@ -60,26 +60,42 @@ async function exibirPosts() {
                     </div>
                 </div>
                 <p style="font-size: 24px ;padding: 10px 0px 0px 0px; margin: 0 0 0 0"><b>${dadospost.title}</b></p>
-                <p style="font-size: 18px ;padding: 5px 0px 0px 0px; margin: 0 0 0 0">${dadospost.body}</p>
-            </div><br>
+                <p style="font-size: 18px ;padding: 5px 0px 0px 0px; margin: 0 0 0 0">${dadospost.body}</p><br>
+                <button type="button" onclick="exibirComentarios(${dadospost.id})">Show Comments</button>
+            </div>
+            <div id="${dadospost.id}">
+            </div>
             `
             divposts.appendChild(topico)
         })
     }
 }
 
-async function exibirComentarios() {
+async function exibirComentarios(postId) {
     await fetchData(urls)
     let dataComments = localStorage.getItem("apiDados1")
     let comments = JSON.parse(dataComments)
+    if(Array.isArray(comments)){
+        let commentsFilter = comments.filter(comment => comment.postId === postId)
+        commentsFilter.forEach(comment => {
+            const commentsDiv = document.createElement("div")
+            const divcomments = document.getElementById(postId)
+            commentsDiv.innerHTML = `
+            <p style="font-size: 18px ;padding: 10px 0px 0px 0px; margin: 0 0 0 0"><b>${comment.name}</b></p>
+            <p style="font-size: 16px ;padding: 5px 0px 0px 0px; margin: 0 0 0 0">${comment.body}</p>
+            `
+            divcomments.appendChild(commentsDiv)
 
-    comments.forEach(dadoscomment => {
-        //criar uma div para colocar cada comentario em seu respectivo post.
-        //o comentario deve ser indexado usando o postId.
-        //usar o id do dadosposts.id para dar um appendchild nele.
-        //criar um botão para exibir ou esconder os comentarios, talvez nem precise do forEach
-        //o comentario pode ser indexado usando filter ou find
-    })
+        })
+        const divcomments = document.getElementById(postId)
+        divcomments.innerHTML += `<br>
+            <button type="button" onclick="excluirComentarios(${postId})">Hide Comments</button>
+        `
+    }
+}
+
+function excluirComentarios(commentId){
+     document.getElementById(commentId).replaceChildren()
 }
 
 exibirPosts()
