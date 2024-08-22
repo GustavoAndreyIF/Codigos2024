@@ -74,7 +74,11 @@ async function exibirComentarios() {
     let comments = JSON.parse(dataComments)
 
     comments.forEach(dadoscomment => {
-        
+        //criar uma div para colocar cada comentario em seu respectivo post.
+        //o comentario deve ser indexado usando o postId.
+        //usar o id do dadosposts.id para dar um appendchild nele.
+        //criar um botão para exibir ou esconder os comentarios, talvez nem precise do forEach
+        //o comentario pode ser indexado usando filter ou find
     })
 }
 
