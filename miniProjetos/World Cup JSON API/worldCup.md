@@ -15,3 +15,6 @@
 | letter | countery | name | win | draws | losses | games_played | gols |
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | A | QAT | Qatar | 0 | 0 | 3 | 3 | 1 |
+
+## Referencias
+https://br.freepik.com/vetores-gratis/modelo-de-tabela-de-grupos-de-campeonato-de-futebol-plano_31696003.htm
