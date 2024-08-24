@@ -1,25 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API World Cup JSON</title>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1 class="title">World Cup</h1>
-        </header>
-        <main>
-            <ul class="menu">
-                <li><a href="pages/fasesJogos.html">Fases de Grupo</a></li>
-                <li><a href="">Pesquisar jogos</a></li>
-                <li><a href="">Classificados</a></li>
-                <li><a href="">Vencedores</a></li>
-                <li><a onclick="voltarPagina()">Voltar</a></li>
-            </ul>
-        </main>
-    </div>
-    <script src="js/main.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Copa do Mundo 2022</title>
+		<style>
+			/* Estilo geral da página */
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				background-color: #1e1e1e; /* Fundo escuro para o modo noturno */
+				color: #e0e0e0; /* Texto claro para contraste */
+				text-align: center;
+			}
+
+			header {
+				background-color: #2b2b2b; /* Fundo escuro para o header */
+				padding: 20px;
+				border-bottom: 2px solid #4a1a1a; /* Borda vinho escura */
+			}
+
+			nav {
+				margin-top: 10px;
+			}
+
+			.menu {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				gap: 20px;
+			}
+
+			.menu h1 {
+				margin: 0;
+				color: #e0e0e0;
+				font-size: 2em;
+			}
+
+			.menu a {
+				text-decoration: none;
+				color: #e0e0e0; /* Texto claro */
+				font-weight: bold;
+				padding: 10px 15px;
+				border-radius: 5px;
+				transition: background-color 0.3s, color 0.3s;
+			}
+
+			.menu a:hover {
+				background-color: #4a1a1a; /* Fundo vinho para hover */
+				color: #e0e0e0; /* Texto claro para contraste */
+			}
+
+			.menu a:active {
+				background-color: #6d1f1f; /* Fundo vinho mais escuro quando clicado */
+			}
+
+			#mainContent {
+				padding: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<nav class="menu">
+				<h1 class="menu">QataStatistics</h1>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/index.html', '../World Cup JSON API/js/main.js')"
+				>
+					Inicio</a
+				>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/pages/faseDeGrupos.html', '../World Cup JSON API/js/faseDeGrupos.js')"
+				>
+					Fase de Grupos</a
+				>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/pages/partida.html', '../World Cup JSON API/js/partida.js')"
+				>
+					Partidas</a
+				>
+			</nav>
+		</header>
+		<main id="conteudoPagina"></main>
+		<script src="../World Cup JSON API/js/main.js"></script>
+	</body>
 </html>
