@@ -10,23 +10,45 @@ async function fetchTimes() {
 	} catch (error) {
 		console.error("Erro na busca de times", error)
 	}
-}
-
-// Faz a mesma coisa do fetchTimes(), mas com a API matches
-async function fetchJogos() {
-	try {
-		const resposta = await fetch("https://worldcupjson.net/matches")
-		const dados = await resposta.json()
-		localStorage.setItem("matches", JSON.stringify(dados.matches)) // Armazena os dados no localStorage
-		console.log("Requisição da API matches completa")
-		return dados.matches
-	} catch (error) {
-		console.error("Erro na busca de jogos", error)
-	}
+} 
+// a URL com todas as bandeiras dos paises da copa, de cahve e passado o mesmo valor do country da API Teams
+const bandeirasPaises = {
+	QAT: "https://flagcdn.com/w320/qa.png",
+	ECU: "https://flagcdn.com/w320/ec.png",
+	SEN: "https://flagcdn.com/w320/sn.png",
+	NED: "https://flagcdn.com/w320/nl.png",
+	ENG: "https://flagcdn.com/w320/gb-eng.png",
+	IRN: "https://flagcdn.com/w320/ir.png",
+	USA: "https://flagcdn.com/w320/us.png",
+	WAL: "https://flagcdn.com/w320/gb-wls.png",
+	ARG: "https://flagcdn.com/w320/ar.png",
+	KSA: "https://flagcdn.com/w320/sa.png",
+	MEX: "https://flagcdn.com/w320/mx.png",
+	POL: "https://flagcdn.com/w320/pl.png",
+	FRA: "https://flagcdn.com/w320/fr.png",
+	AUS: "https://flagcdn.com/w320/au.png",
+	DEN: "https://flagcdn.com/w320/dk.png",
+	TUN: "https://flagcdn.com/w320/tn.png",
+	ESP: "https://flagcdn.com/w320/es.png",
+	CRC: "https://flagcdn.com/w320/cr.png",
+	GER: "https://flagcdn.com/w320/de.png",
+	JPN: "https://flagcdn.com/w320/jp.png",
+	BEL: "https://flagcdn.com/w320/be.png",
+	CAN: "https://flagcdn.com/w320/ca.png",
+	MAR: "https://flagcdn.com/w320/ma.png",
+	CRO: "https://flagcdn.com/w320/hr.png",
+	BRA: "https://flagcdn.com/w320/br.png",
+	SRB: "https://flagcdn.com/w320/rs.png",
+	SUI: "https://flagcdn.com/w320/ch.png",
+	CMR: "https://flagcdn.com/w320/cm.png",
+	POR: "https://flagcdn.com/w320/pt.png",
+	GHA: "https://flagcdn.com/w320/gh.png",
+	URU: "https://flagcdn.com/w320/uy.png",
+	KOR: "https://flagcdn.com/w320/kr.png",
 }
 
 // Exibe os times separados por grupos no HTML
-async function displayGrupos() {
+async function exibirGrupos() {
 	// Obtém os dados do localStorage ou faz a requisição se não estiver disponível
 	const grupos =
 		JSON.parse(localStorage.getItem("teams")) || (await fetchTimes())
@@ -56,15 +78,15 @@ async function displayGrupos() {
 		tabela.innerHTML = `
             <thead>
                 <tr>
-                    <th>Equipe</th>
-                    <th>Pontos</th>
-                    <th>Jogos</th>
-                    <th>Vitórias</th>
-                    <th>Empates</th>
-                    <th>Derrotas</th>
-                    <th>Gols Marcados</th>
-                    <th>Gols Sofridos</th>
-                    <th>Saldo de Gols</th>
+                    <th style="text-align: left">Equipe</th>
+                    <th>Pts</th>
+                    <th>PJ</th>
+                    <th>VIT</th>
+                    <th>E</th>
+                    <th>DER</th>
+                    <th>GM</th>
+                    <th>GC</th>
+                    <th>SG</th>
                     
                 </tr>
             </thead>
@@ -75,17 +97,21 @@ async function displayGrupos() {
 					.map(
 						(time, index) => `
                     <!-- Atribui uma classe CSS apenas nos times com o index abaixo de 2, ou seja, os times classificados. Caso a condição do if ternário não seja satisfeita, a classe é uma string vazia, ou seja, times com index acima de 2 não ganham estilização de classificado -->
-                    <tr class="${index < 2 ? "classificado" : ""}">
+                    <tr class="${
+						index < 2 ? "classificado" : "desclassificado"
+					}">
                         <!-- Acessa cada atributo do objeto, nome do time, partidas jogadas e etc. -->
-                        <td>${time.name}</td>
-                        <td>${time.group_points}</td>
-                        <td>${time.games_played}</td>
-                        <td>${time.wins}</td>
-                        <td>${time.draws}</td>
-                        <td>${time.losses}</td>
-                        <td>${time.goals_for}</td>
-                        <td>${time.goals_against}</td>
-                        <td>${time.goal_differential}</td>
+                        <td><img src="${
+							bandeirasPaises[time.country] || "#"
+						}" width="20" height="15"><span>${time.name}<span></td>
+                        <td class="center">${time.group_points}</td>
+                        <td class="center">${time.games_played}</td>
+                        <td class="center">${time.wins}</td>
+                        <td class="center">${time.draws}</td>
+                        <td class="center">${time.losses}</td>
+                        <td class="center">${time.goals_for}</td>
+                        <td class="center">${time.goals_against}</td>
+                        <td class="center">${time.goal_differential}</td>
                     </tr>
                     <!-- O join é para combinar todas as strings do map em uma só. Isso serve para imprimir tudo sem erro no HTML -->
                 `
@@ -109,4 +135,4 @@ async function displayGrupos() {
 }
 
 // Chama a função para carregar a página
-displayGrupos()
+exibirGrupos()
