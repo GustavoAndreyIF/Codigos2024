@@ -78,16 +78,19 @@ function criarCard(partida) {
 	const bandeiraTime2 =
 		bandeirasPaises[partida.away_team.country] ||
 		"https://via.placeholder.com/32"
-
-	card.innerHTML = `
+		card.innerHTML = `
         <div class="team">
-            <img src="${bandeiraTime1}" alt="${partida.home_team.country}" />
-            <h3>${partida.home_team.name} vs ${partida.away_team.name}</h3>
-            <img src="${bandeiraTime2}" alt="${partida.away_team.country}" />
+		<!-- Adicona as bandeiras e nomes dos times.
+		e em seguida os gols marcados na partida, mais o lugar e horario. -->
+            <img width="20" height="15" src="${bandeiraTime1}"/>
+			<h3>${partida.home_team.name} vs ${partida.away_team.name}</h3>
+			<img width="20" height="15" src="${bandeiraTime2}">
         </div>
         <p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
-        <p>${partida.location}</p>
-        <p>${new Date(partida.datetime).toLocaleDateString()} ${new Date(
+        <h4>Estadio</h4>
+		<p>${partida.location}</p>
+		<h4>Data e Horario</h4>
+        <p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
 		partida.datetime
 	).toLocaleTimeString()}</p>
     `
