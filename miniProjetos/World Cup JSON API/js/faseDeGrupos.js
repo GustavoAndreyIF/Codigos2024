@@ -1,6 +1,3 @@
-// importa as bandeiras
-import { bandeirasPaises } from './bandeiras.js';
-
 // Faz o fetch na API de times
 // O try e o catch servem para caso a requisição der erro, o catch vai devolver qual o erro.
 async function fetchTimes() {

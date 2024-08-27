@@ -1,7 +1,3 @@
-// importa bandeiras
-import { bandeirasPaises } from './bandeiras.js';
-
-
 // Faz a mesma coisa do fetchTimes(), mas com a API matches
 async function fetchJogos() {
 	try {
