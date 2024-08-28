@@ -6,6 +6,41 @@
 		<title>Partidas</title>
 	</head>
 	<body>
+		<header>
+			<nav class="menu">
+				<h1 class="menu">QataStatistics</h1>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/index.html', '../World Cup JSON API/js/main.js')"
+				>
+					Inicio</a
+				>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/pages/faseDeGrupos.html', '../World Cup JSON API/js/faseDeGrupos.js')"
+				>
+					Fase de Grupos</a
+				>
+				<a
+					href="#"
+					onclick="carregarConteudo('../World Cup JSON API/pages/eliminatorias.html', '../World Cup JSON API/js/eliminatorias.js')"
+				>
+					Eliminatorias</a
+				>
+
+				<!-- Barra de Pesquisa 
+				 fala o tipo que e texto, o id, pega o valor e passa para função sugerir,
+				 e so executa a função de pesquisar se o enter for apertado ou for usado o autocomplete -->
+				<input
+					type="text"
+					id="barraPesquisa"
+					oninput="sugerir(this.value)"
+					onkeypress="if (event.key === 'Enter') pesquisar();"
+					autocomplete="off"
+				/>
+				<div id="sugestoesContainer"></div>
+			</nav>
+		</header>
 		<h2>Partidas da Copa do Mundo 2022</h2>
 		<div id="partidasContainer">
 			<!-- Aqui vai ter todas as tabelas mostrando a fase de grupos da copa.

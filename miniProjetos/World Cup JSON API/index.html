@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Copa do Mundo 2022</title>
 	</head>
-	<body>
+	<body id="conteudoPagina">
 		<header>
 			<nav class="menu">
 				<h1 class="menu">QataStatistics</h1>
@@ -25,11 +25,22 @@
 					href="#"
 					onclick="carregarConteudo('../World Cup JSON API/pages/eliminatorias.html', '../World Cup JSON API/js/eliminatorias.js')"
 				>
-					Eliminatoriass</a
+					Eliminatorias</a
 				>
+
+				<!-- Barra de Pesquisa 
+				 fala o tipo que e texto, o id, pega o valor e passa para função sugerir,
+				 e so executa a função de pesquisar se o enter for apertado ou for usado o autocomplete -->
+				<input
+					type="text"
+					id="barraPesquisa"
+					oninput="sugerir(this.value)"
+					onkeypress="if (event.key === 'Enter') pesquisar();"
+					autocomplete="off"
+				/>
+				<div id="sugestoesContainer"></div>
 			</nav>
 		</header>
-		<main id="conteudoPagina"></main>
 		<script src="../World Cup JSON API/js/main.js"></script>
 	</body>
 </html>

@@ -1,17 +1,3 @@
-// Faz o fetch na API de times
-// O try e o catch servem para caso a requisição der erro, o catch vai devolver qual o erro.
-async function fetchTimes() {
-	try {
-		const resposta = await fetch("https://worldcupjson.net/teams") // Faz a requisição da API
-		const dados = await resposta.json() // Pega a resposta da requisição e extrai o JSON
-		localStorage.setItem("teams", JSON.stringify(dados.groups)) // Armazena os dados no localStorage
-		console.log("Requisição da API teams completa")
-		return dados.groups // Retorna os dados dos grupos
-	} catch (error) {
-		console.error("Erro na busca de times", error)
-	}
-} 
-
 // Exibe os times separados por grupos no HTML
 async function exibirGrupos() {
 	// Obtém os dados do localStorage ou faz a requisição se não estiver disponível
@@ -68,7 +54,9 @@ async function exibirGrupos() {
                         <!-- Acessa cada atributo do objeto, nome do time, partidas jogadas e etc. -->
                         <td><img src="${
 							bandeirasPaises[time.country] || "#"
-						}" width="20" height="15"><span>${time.name}<span></td>
+						}" width="20" height="15"><span>${
+							nomesPaises[time.name]
+						}<span></td>
                         <td class="center">${time.group_points}</td>
                         <td class="center">${time.games_played}</td>
                         <td class="center">${time.wins}</td>
