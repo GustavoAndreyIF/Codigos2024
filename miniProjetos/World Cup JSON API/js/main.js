@@ -116,11 +116,41 @@ function mostrarSugestoes(sugestoes) {
 	})
 }
 
+// função para criar cards, pequenos blocos para cada partida exibida.
+function criarCard(partida) {
+	const card = document.createElement("div") // cria uma tag div
+	card.classList.add("card") // coloca uma classe CSS na div card
+	// coloca as bandeiras nos seus respectivos times
+	const bandeiraTime1 = bandeirasPaises[partida.home_team.country]
+	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
+
+	card.innerHTML = `
+	<div class="team">
+	<!-- Adicona as bandeiras e nomes dos times.
+	e em seguida os gols marcados na partida, mais o lugar e horario. -->
+		<img width="20" height="15" src="${bandeiraTime1}"/>
+		<h3>${nomesPaises[partida.home_team.name]} vs ${
+		nomesPaises[partida.away_team.name]
+	}</h3>
+		<img width="20" height="15" src="${bandeiraTime2}">
+	</div>
+	<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
+	<h4>Estadio</h4>
+	<p>${partida.venue} - ${partida.location}</p>
+	<h4>Data e Horario</h4>
+	<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
+		partida.datetime
+	).toLocaleTimeString()}</p>
+`
+	return card
+}
+
 function pesquisar() {
 	// pega o valor da barra de pesquisa
 	const termoPesquisa = document
 		.getElementById("barraPesquisa")
 		.value.toLowerCase()
+	// executa a função para encontrar os times
 	const timeEncontrado = encontrarTime(termoPesquisa, nomesPaises)
 	// se o time não for encontrado a função retorna nada
 	if (!timeEncontrado) {
@@ -136,12 +166,15 @@ function pesquisar() {
 	// procura com um filtro se tem algum time com o nome inserido na barra de pesquisa, seja ingles ou portugues
 	const timesFiltrados = times.filter((grupo) =>
 		grupo.teams.some(
+			// pega o parametro grupo, e acessa cada array dentro da lista de times.
+			// o some verifica se um dos nomes dos times sejam ingles ou portugues atendem o requisito.
 			(time) =>
 				time.name.toLowerCase().includes(nomeIngles) ||
 				time.name.toLowerCase().includes(nomePortugues)
 		)
 	)
 	// procura o nome seja no time da casa ou convidado se o nome esta inserido dentro do json de partidas
+	// o include serve exatamente para checar se o nome do time esta dentro do objeto
 	const partidasFiltradas = partidas.filter(
 		(partida) =>
 			partida.home_team.name.toLowerCase().includes(nomeIngles) ||
@@ -149,10 +182,94 @@ function pesquisar() {
 			partida.away_team.name.toLowerCase().includes(nomeIngles) ||
 			partida.away_team.name.toLowerCase().includes(nomePortugues)
 	)
-	//so me imprime o resultado
-	console.log("Times filtrados:", timesFiltrados)
-	console.log("Partidas filtradas:", partidasFiltradas)
+	// pega o id do main pra inserir o conteudo pesquisado.
+	const conteudoPagina = document.getElementById("conteudoPagina")
+	conteudoPagina.innerHTML = "" // Limpa o conteúdo anterior
+	const sugestaoContainer = document.getElementById("sugestoesContainer") // pega as sugestoes e limpa elas
+	sugestaoContainer.innerHTML = ""
+	// se o conteudo digitado for maior que zero ele insere o conteudo.
+	if (timesFiltrados.length > 0) {
+		// cria uma tag h2 para titulo
+		const tituloTimes = document.createElement("h2")
+		tituloTimes.textContent = "Time encontrado:" // adiciona como conteudo do texto
+		conteudoPagina.appendChild(tituloTimes) // insere o titulo
+		// percorre os time encontrado, boa parte desse codigo e reciclado.
+		timesFiltrados.forEach((grupo) => {
+			const tabela = document.createElement("table") // cria uma tabela
+			tabela.classList.add("tabela-grupos") // coloca um atributo css
+			tabela.innerHTML = `
+            <thead>
+                <tr>
+                    <th style="text-align: left">Equipe</th>
+                    <th>Pts</th>
+                    <th>PJ</th>
+                    <th>VIT</th>
+                    <th>E</th>
+                    <th>DER</th>
+                    <th>GM</th>
+                    <th>GC</th>
+                    <th>SG</th>
+                    
+                </tr>
+            </thead>
+            <!-- o thead e tbody são o cabeçalho e corpo da tabela, detalhes de HTML semântico -->
+            <tbody>
+                <!-- O map é para iterar em cada elemento do array e retornar uma string para cada linha HTML, fornecendo a posição de cada elemento -->
+                ${grupo.teams
+					.map(
+						(time, index) => `
+                    <!-- Atribui uma classe CSS apenas nos times com o index abaixo de 2, ou seja, os times classificados. Caso a condição do if ternário não seja satisfeita, a classe é uma string vazia, ou seja, times com index acima de 2 não ganham estilização de classificado -->
+                    <tr class="${
+						index < 2 ? "classificado" : "desclassificado"
+					}">
+                        <!-- Acessa cada atributo do objeto, nome do time, partidas jogadas e etc. -->
+                        <td><img src="${
+							bandeirasPaises[time.country] || "#"
+						}" width="20" height="15"><span>${
+							nomesPaises[time.name]
+						}<span></td>
+                        <td class="center">${time.group_points}</td>
+                        <td class="center">${time.games_played}</td>
+                        <td class="center">${time.wins}</td>
+                        <td class="center">${time.draws}</td>
+                        <td class="center">${time.losses}</td>
+                        <td class="center">${time.goals_for}</td>
+                        <td class="center">${time.goals_against}</td>
+                        <td class="center">${time.goal_differential}</td>
+                    </tr>
+                    <!-- O join é para combinar todas as strings do map em uma só. Isso serve para imprimir tudo sem erro no HTML -->
+                `
+					)
+					.join("")}
+            </tbody>
+        `
+			conteudoPagina.appendChild(tabela)
+		})
+	} else {
+		// caso nenhum time seja encontrado, imprime uma mensagem.
+		const msg = document.createElement("p") // cria uma tag de paragrafo
+		msg.textContent = "Nenhum time encontrado."
+		conteudoPagina.appendChild(msg)
+	}
+
+	// insere as partidas filtradas
+	if (partidasFiltradas.length > 0) {
+		const tituloPartidas = document.createElement("h2")
+		tituloPartidas.textContent = "Partidas encontradas:"
+		conteudoPagina.appendChild(tituloPartidas)
+		// percorre todas as partidas que o time jogou
+		partidasFiltradas.forEach((partida) => {
+			// cria um card usando a função do eliminatias.js
+			const card = criarCard(partida)
+			conteudoPagina.appendChild(card)
+		})
+	} else {
+		const msg = document.createElement("p")
+		msg.textContent = "Nenhuma partida encontrada."
+		conteudoPagina.appendChild(msg)
+	}
 }
+
 // objeto com o nome de todos o paises em pt br
 const nomesPaises = {
 	Qatar: "Catar",

@@ -1,31 +1,3 @@
-// função para criar cards, pequenos blocos para cada partidas
-function criarCard(partida) {
-	const card = document.createElement("div") // cria uma tag div
-	card.classList.add("card") // coloca uma classe CSS na div card
-	// coloca as bandeiras nos seus respectivos times
-	const bandeiraTime1 = bandeirasPaises[partida.home_team.country]
-	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
-
-	card.innerHTML = `
-	<div class="team">
-	<!-- Adicona as bandeiras e nomes dos times.
-	e em seguida os gols marcados na partida, mais o lugar e horario. -->
-		<img width="20" height="15" src="${bandeiraTime1}"/>
-		<h3>${nomesPaises[partida.home_team.name]} vs ${
-		nomesPaises[partida.away_team.name]
-	}</h3>
-		<img width="20" height="15" src="${bandeiraTime2}">
-	</div>
-	<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
-	<h4>Estadio</h4>
-	<p>${partida.location}</p>
-	<h4>Data e Horario</h4>
-	<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
-		partida.datetime
-	).toLocaleTimeString()}</p>
-`
-	return card
-}
 // exibirpartidas no HTML
 function exibirPartidas() {
 	// Obtém os dados do localStorage ou faz a requisição se não estiver disponível
