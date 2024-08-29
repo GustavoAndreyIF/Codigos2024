@@ -129,9 +129,17 @@ function criarCard(partida) {
 	<!-- Adicona as bandeiras e nomes dos times.
 	e em seguida os gols marcados na partida, mais o lugar e horario. -->
 		<img width="20" height="15" src="${bandeiraTime1}"/>
-		<h3>${nomesPaises[partida.home_team.name]} vs ${
-		nomesPaises[partida.away_team.name]
-	}</h3>
+		<h3 class="${
+			partida.winner_code === partida.home_team.country
+				? "ganhador"
+				: "perdedor"
+		}">${nomesPaises[partida.home_team.name]}</h3>
+		<h3> vs </h3>
+		<h3 class="${
+			partida.winner_code === partida.home_team.country
+				? "ganhador"
+				: "perdedor"
+		}"${nomesPaises[partida.away_team.name]}></h3>
 		<img width="20" height="15" src="${bandeiraTime2}">
 	</div>
 	<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
