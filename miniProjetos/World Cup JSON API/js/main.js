@@ -125,32 +125,46 @@ function criarCard(partida) {
 	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
 
 	card.innerHTML = `
-	<div class="team">
-	<!-- Adicona as bandeiras e nomes dos times.
-	e em seguida os gols marcados na partida, mais o lugar e horario. -->
-		<img width="20" height="15" src="${bandeiraTime1}"/>
-		<h3 class="${
-			partida.winner_code === partida.home_team.country
-				? "ganhador"
-				: "perdedor"
-		}">${nomesPaises[partida.home_team.name]}</h3>
-		<h3> vs </h3>
-		<h3 class="${
-			partida.winner_code === partida.home_team.country
-				? "ganhador"
-				: "perdedor"
-		}"${nomesPaises[partida.away_team.name]}></h3>
-		<img width="20" height="15" src="${bandeiraTime2}">
-	</div>
-	<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
-	<h4>Estadio</h4>
-	<p>${partida.venue} - ${partida.location}</p>
-	<h4>Data e Horario</h4>
-	<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
+	<div id="${partida.datetime}">
+		<div class="team">
+		<!-- Adicona as bandeiras e nomes dos times.
+		e em seguida os gols marcados na partida, mais o lugar e horario. -->
+			<img width="20" height="15" src="${bandeiraTime1}"/>
+			<h3 class="${
+				partida.winner_code === partida.home_team.country
+					? "ganhador"
+					: "perdedor"
+			}">${nomesPaises[partida.home_team.name]}</h3>
+			<h3> vs </h3>
+			<h3 class="${
+				partida.winner_code === partida.home_team.country
+					? "ganhador"
+					: "perdedor"
+			}"${nomesPaises[partida.away_team.name]}></h3>
+			<img width="20" height="15" src="${bandeiraTime2}">
+		</div>
+		<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
+		<h4>Estadio</h4>
+		<p>${partida.venue} - ${partida.location}</p>
+		<h4>Data e Horario</h4>
+		<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
 		partida.datetime
 	).toLocaleTimeString()}</p>
+	</div>
 `
+	// esse date e para pegar a string da data json e converte ela para um formato de data que nos usamos.
 	return card
+}
+
+// Função para exibir as partidas filtradas no main
+function exibirPartidasNoMain(partidas) {
+	const container = document.getElementById("conteudoPagina")
+	container.innerHTML = "" // Limpa o conteúdo anterior
+
+	partidas.forEach((partida) => {
+		const card = criarCard(partida)
+		container.appendChild(card)
+	})
 }
 
 function pesquisar() {
@@ -262,22 +276,94 @@ function pesquisar() {
 
 	// insere as partidas filtradas
 	if (partidasFiltradas.length > 0) {
-		const tituloPartidas = document.createElement("h2")
-		tituloPartidas.textContent = "Partidas encontradas:"
+		// executa a função para criar um filtro de data de data para as partidas
+		selecionarDataPesquisa(partidasFiltradas)
+		const tituloPartidas = document.createElement("h2") //cria uma tag h2 de titulo
+		tituloPartidas.textContent = "Partidas encontradas:" //adiona conteudo na tag
+		const divPartidas = document.createElement("div") // cria uma div para as partidas
+		divPartidas.id = "partidasFiltro" // coloca um id na div
 		conteudoPagina.appendChild(tituloPartidas)
+		conteudoPagina.appendChild(divPartidas) // adiciona tanto o titulo quanto a div das partidas
 		// percorre todas as partidas que o time jogou
 		partidasFiltradas.forEach((partida) => {
-			// cria um card usando a função do eliminatias.js
+			// cria um card usando a função e passando a partida que o forEach ta percorrendo
 			const card = criarCard(partida)
-			conteudoPagina.appendChild(card)
+			divPartidas.appendChild(card)
 		})
 	} else {
+		// cria um paragrafo para imprimir caso nenhum time seja encontrado
 		const msg = document.createElement("p")
 		msg.textContent = "Nenhuma partida encontrada."
 		conteudoPagina.appendChild(msg)
 	}
+	selecionarDataPesquisa(partidasFiltradas)
 }
 
+function selecionarDataPesquisa(partidas) {
+	// pega o id da div
+	const divPartidas = document.querySelector("#partidasFiltro")
+	// pega a tag nav
+	const nav = document.querySelector("nav")
+	// pega o id da tag select se ja existir uma
+	let selectDatas = document.getElementById("selectDatas")
+	// remove a tag select se ja existir uma e evita duplicações
+	if (selectDatas) {
+		selectDatas.remove()
+	}
+	// cria uma nova tag select
+	selectDatas = document.createElement("select")
+	selectDatas.id = "selectDatas" // coloca o id no select
+	selectDatas.innerHTML = `<option value="">Selecione uma data</option>`
+	// extrai e organiza as datas das partidas que tem no JSON
+	const datasUnicas = [
+		...new Set(
+			partidas.map((partida) =>
+				new Date(partida.datetime).toLocaleDateString()
+			)
+		),
+	]
+	datasUnicas.sort() // Ordena as datas
+	// Adiciona cada data como uma opção no select
+	datasUnicas.forEach((data) => {
+		const option = document.createElement("option") //cria uma nova opção
+		option.value = data // adiciona de valor a data que o forEach ta percorrendo
+		option.textContent = data // e como valor de texto tambem coloca a data
+		selectDatas.appendChild(option) // adciona a opção dentro do select
+	})
+
+	// Adiciona o select ao nav
+	nav.appendChild(selectDatas)
+
+	// usa um evento html para filtrar as as partidas por data.
+	// e algo parecido com o onclick(), mas aqui a gente ta usando change(), que dispara a função do evento quando o valor e selecionado
+	// o evento e colocado na tag select
+	selectDatas.addEventListener("change", (select) => {
+		const dataSelecionada = select.target.value // pega o valor da opções selecionadaa
+		const partidasFiltradasPorData = partidas.filter(
+			(partida) =>
+				// esse date e um objeto de data, pra formatar as datas para um modo que estamos acostumados
+				new Date(partida.datetime).toLocaleDateString() ===
+				dataSelecionada // pega apenas as partidas que foram selecionadas
+		)
+		divPartidas.innerHTML = ""
+		partidasFiltradasPorData.forEach((partida) => {
+			const card = criarCard(partida)
+			if (card) {
+				divPartidas.append(card)
+			}
+		})
+	})
+}
+
+function exibirPartidasNoMain(partidas) {
+	const container = document.getElementById("conteudoPagina")
+	container.innerHTML = "" // Limpa o conteúdo anterior
+
+	partidas.forEach((partida) => {
+		const card = criarCard(partida)
+		container.appendChild(card)
+	})
+}
 // objeto com o nome de todos o paises em pt br
 const nomesPaises = {
 	Qatar: "Catar",
