@@ -1,48 +1,38 @@
-// Carrega o HTML de outras paginas sem a necessidade de carregar uma nova pagina
-// Entra como parametro a URL da pagina que e passado no momento de executar a função no index.html
 async function carregarConteudo(urlPage, urlScript) {
-	// o fetch faz a requisição para a pagina HTMl clicada
 	fetch(urlPage)
 		.then((resposta) => {
-			// igual o try e catch, mas aqui o erro e retornado pelo if, se a reposta nao estiver ok, imprime o erro
 			if (!resposta.ok) {
 				throw new Error(
-					// o objeto Eroor criado retorna o status do erro.
 					`Erro ${resposta.status}: ${resposta.statusText}`
 				)
 			}
-			// o metodo text e usado para pegar o conteudo da respota do fetch, ou seja os dados
+
 			return resposta.text()
 		})
 		.then((dados) => {
-			// adiciona todos os dados da pagina html no conteudo main
 			document.getElementById("conteudoPagina").innerHTML = dados
-			// cria uma tag script para que o codigo da pagina funcione
+
 			const script = document.createElement("script")
-			// atribui a tag script o atributo src, que como valor e passado o endereço do script da pagina
+
 			script.src = urlScript
-			// adiciona o script no body do html
+
 			document.body.appendChild(script)
 		})
-		// se tudo der errado, o catch vai imprimir no console
+
 		.catch((error) => console.error("Erro ao carregar o conteúdo:", error))
 }
-// Faz o fetch nas APIs teams e matches
-// O try e o catch servem para caso a requisição der erro, o catch vai devolver qual o erro.
-// Faz o fetch apenas se os dados não estiverem no localStorage
+
 if (!localStorage.getItem("teams") || !localStorage.getItem("matches")) {
 	async function fetchData() {
 		try {
-			// declara duas constantes
 			const [teamsResponse, matchesResponse] = await Promise.all([
-				// o Promise.all quer dizer que o codigo vai esperar (await) todas as requisições da api
 				fetch("https://worldcupjson.net/teams"),
 				fetch("https://worldcupjson.net/matches"),
 			])
 
 			const teamsData = await teamsResponse.json()
 			const matchesData = await matchesResponse.json()
-			// armazena os dados em diferentes lugares do localStorage do navegador
+
 			localStorage.setItem("teams", JSON.stringify(teamsData.groups))
 			localStorage.setItem("matches", JSON.stringify(matchesData))
 
@@ -51,16 +41,13 @@ if (!localStorage.getItem("teams") || !localStorage.getItem("matches")) {
 			console.error("Erro ao buscar dados:", error)
 		}
 	}
-	// se os dados não tiverem no localStorage a função de carregar os dados e feita
+
 	fetchData()
 }
-// essa função serve para pegar o nome escrito na barra de pesquisa, e retorna ele ingles.
-// isso serve porque eu não quis fazer outro objeto de nomes de paises mas chaves e valores invenrtidos.
-// e complicado, mas em resumo tanto a pesquisa em portugues, quanto em ingles funcionam
+
 function encontrarTime(termoPesquisa, nomesPaises) {
-	// Convertendo o termo de pesquisa para lowercase para deixar tudo menisculo
 	const termoLower = termoPesquisa.toLowerCase()
-	// passa a chave e o valor do objeto nomesPaises, e ve se o nome em portugues que e o valor ou o ingles que e a chave e igual ao termo de pesquisa.
+
 	for (const [key, value] of Object.entries(nomesPaises)) {
 		if (
 			value.toLowerCase() === termoLower ||
@@ -70,22 +57,19 @@ function encontrarTime(termoPesquisa, nomesPaises) {
 		}
 	}
 
-	// Se nada foi encontrado, retornamos null ou uma mensagem de erro
 	return null
 }
 
 function sugerir(termoPesquisa) {
-	// deixa o termo todo minusculo
 	const termoLower = termoPesquisa.toLowerCase()
-	//lista com todas as sugestões possiveis
+
 	const sugestoes = []
-	//percorrer cada valor e chave do nome dos paises
+
 	for (const [key, value] of Object.entries(nomesPaises)) {
 		if (
 			key.toLowerCase().startsWith(termoLower) ||
 			value.toLowerCase().startsWith(termoLower)
 		) {
-			// adiciona a lista de sugestões as sugestões possiveis
 			sugestoes.push({ nomeIngles: key, nomePortugues: value })
 		}
 	}
@@ -94,33 +78,30 @@ function sugerir(termoPesquisa) {
 }
 
 function mostrarSugestoes(sugestoes) {
-	// pega o id da div que vai exibir os nomes sugeridos
 	const container = document.getElementById("sugestoesContainer")
-	container.innerHTML = "" // Limpa as sugestões anteriores
-	// percorrer a lista de possiveis sugestões
+	container.innerHTML = ""
+
 	sugestoes.forEach((sugestao) => {
-		const divSugestao = document.createElement("div") // cria uma div para colocar cada sugestão
-		divSugestao.classList.add("sugestao-item") // coloca um css pra deixar bonito
-		// adiciona de conteudo do texto da div o nome e portugues e entre chaves em ingles
+		const divSugestao = document.createElement("div")
+		divSugestao.classList.add("sugestao-item")
+
 		divSugestao.textContent = `${sugestao.nomePortugues} (${sugestao.nomeIngles})`
-		// adiciona um onclick na div de cada nome sugerido
+
 		divSugestao.onclick = function () {
-			// pega o valor da barra de pesquisa e coloca o nome sugerido clicado
 			document.getElementById("barraPesquisa").value =
 				sugestao.nomePortugues
-			container.innerHTML = "" // Limpa as sugestões após a seleção
-			pesquisar() // executa a pesquisa apos seleção
+			container.innerHTML = ""
+			pesquisar()
 		}
-		// adiciona a sugestão na div de sugestões
+
 		container.appendChild(divSugestao)
 	})
 }
 
-// função para criar cards, pequenos blocos para cada partida exibida.
 function criarCard(partida) {
-	const card = document.createElement("div") // cria uma tag div
-	card.classList.add("card") // coloca uma classe CSS na div card
-	// coloca as bandeiras nos seus respectivos times
+	const card = document.createElement("div")
+	card.classList.add("card")
+
 	const bandeiraTime1 = bandeirasPaises[partida.home_team.country]
 	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
 
@@ -152,51 +133,40 @@ function criarCard(partida) {
 	).toLocaleTimeString()}</p>
 	</div>
 `
-	// esse date e para pegar a string da data json e converte ela para um formato de data que nos usamos.
+
 	return card
 }
 
-// Função para exibir as partidas filtradas no main
-function exibirPartidasNoMain(partidas) {
-	const container = document.getElementById("conteudoPagina")
-	container.innerHTML = "" // Limpa o conteúdo anterior
-
-	partidas.forEach((partida) => {
-		const card = criarCard(partida)
-		container.appendChild(card)
-	})
-}
-
 function pesquisar() {
-	// pega o valor da barra de pesquisa
 	const termoPesquisa = document
 		.getElementById("barraPesquisa")
 		.value.toLowerCase()
-	// executa a função para encontrar os times
+
 	const timeEncontrado = encontrarTime(termoPesquisa, nomesPaises)
-	// se o time não for encontrado a função retorna nada
+
+	const conteudoPagina = document.getElementById("conteudoPagina")
+
 	if (!timeEncontrado) {
-		console.log("Time não encontrado.")
+		const msgErro = document.createElement("p")
+		msgErro.textContent = "Time não encontrado."
+		conteudoPagina.appendChild(msgErro)
 		return
 	}
-	// como a função encontrarTime() retorna um objeto, eu consigo pegar o nome em portugues e ingles
+
 	const nomeIngles = timeEncontrado.nomeIngles.toLowerCase()
 	const nomePortugues = timeEncontrado.nomePortugues.toLowerCase()
-	// pega os jsons de time e partidas
+
 	const times = JSON.parse(localStorage.getItem("teams"))
 	const partidas = JSON.parse(localStorage.getItem("matches"))
-	// procura com um filtro se tem algum time com o nome inserido na barra de pesquisa, seja ingles ou portugues
+
 	const timesFiltrados = times.filter((grupo) =>
 		grupo.teams.some(
-			// pega o parametro grupo, e acessa cada array dentro da lista de times.
-			// o some verifica se um dos nomes dos times sejam ingles ou portugues atendem o requisito.
 			(time) =>
 				time.name.toLowerCase().includes(nomeIngles) ||
 				time.name.toLowerCase().includes(nomePortugues)
 		)
 	)
-	// procura o nome seja no time da casa ou convidado se o nome esta inserido dentro do json de partidas
-	// o include serve exatamente para checar se o nome do time esta dentro do objeto
+
 	const partidasFiltradas = partidas.filter(
 		(partida) =>
 			partida.home_team.name.toLowerCase().includes(nomeIngles) ||
@@ -204,21 +174,18 @@ function pesquisar() {
 			partida.away_team.name.toLowerCase().includes(nomeIngles) ||
 			partida.away_team.name.toLowerCase().includes(nomePortugues)
 	)
-	// pega o id do main pra inserir o conteudo pesquisado.
-	const conteudoPagina = document.getElementById("conteudoPagina")
-	conteudoPagina.innerHTML = "" // Limpa o conteúdo anterior
-	const sugestaoContainer = document.getElementById("sugestoesContainer") // pega as sugestoes e limpa elas
+	conteudoPagina.innerHTML = ""
+	const sugestaoContainer = document.getElementById("sugestoesContainer")
 	sugestaoContainer.innerHTML = ""
-	// se o conteudo digitado for maior que zero ele insere o conteudo.
+
 	if (timesFiltrados.length > 0) {
-		// cria uma tag h2 para titulo
 		const tituloTimes = document.createElement("h2")
-		tituloTimes.textContent = "Time encontrado:" // adiciona como conteudo do texto
-		conteudoPagina.appendChild(tituloTimes) // insere o titulo
-		// percorre os time encontrado, boa parte desse codigo e reciclado.
+		tituloTimes.textContent = "Time encontrado:"
+		conteudoPagina.appendChild(tituloTimes)
+
 		timesFiltrados.forEach((grupo) => {
-			const tabela = document.createElement("table") // cria uma tabela
-			tabela.classList.add("tabela-grupos") // coloca um atributo css
+			const tabela = document.createElement("table")
+			tabela.classList.add("tabela-grupos")
 			tabela.innerHTML = `
             <thead>
                 <tr>
@@ -267,31 +234,22 @@ function pesquisar() {
         `
 			conteudoPagina.appendChild(tabela)
 		})
-	} else {
-		// caso nenhum time seja encontrado, imprime uma mensagem.
-		const msg = document.createElement("p") // cria uma tag de paragrafo
-		msg.textContent = "Nenhum time encontrado."
-		conteudoPagina.appendChild(msg)
 	}
 
-	// insere as partidas filtradas
 	if (partidasFiltradas.length > 0) {
-		// executa a função para criar um filtro de data de data para as partidas
 		selecionarDataPesquisa(partidasFiltradas)
-		const tituloPartidas = document.createElement("h2") //cria uma tag h2 de titulo
-		tituloPartidas.textContent = "Partidas encontradas:" //adiona conteudo na tag
-		const divPartidas = document.createElement("div") // cria uma div para as partidas
-		divPartidas.id = "partidasFiltro" // coloca um id na div
+		const tituloPartidas = document.createElement("h2")
+		tituloPartidas.textContent = "Partidas encontradas:"
+		const divPartidas = document.createElement("div")
+		divPartidas.id = "partidasFiltro"
 		conteudoPagina.appendChild(tituloPartidas)
-		conteudoPagina.appendChild(divPartidas) // adiciona tanto o titulo quanto a div das partidas
-		// percorre todas as partidas que o time jogou
+		conteudoPagina.appendChild(divPartidas)
+
 		partidasFiltradas.forEach((partida) => {
-			// cria um card usando a função e passando a partida que o forEach ta percorrendo
 			const card = criarCard(partida)
 			divPartidas.appendChild(card)
 		})
 	} else {
-		// cria um paragrafo para imprimir caso nenhum time seja encontrado
 		const msg = document.createElement("p")
 		msg.textContent = "Nenhuma partida encontrada."
 		conteudoPagina.appendChild(msg)
@@ -299,22 +257,35 @@ function pesquisar() {
 	selecionarDataPesquisa(partidasFiltradas)
 }
 
+function exibirPartidasNoMain(partidas) {
+	const container = document.getElementById("conteudoPagina")
+	container.innerHTML = ""
+
+	partidas.forEach((partida) => {
+		const card = criarCard(partida)
+		container.appendChild(card)
+	})
+}
+
 function selecionarDataPesquisa(partidas) {
-	// pega o id da div
 	const divPartidas = document.querySelector("#partidasFiltro")
-	// pega a tag nav
 	const nav = document.querySelector("nav")
-	// pega o id da tag select se ja existir uma
 	let selectDatas = document.getElementById("selectDatas")
-	// remove a tag select se ja existir uma e evita duplicações
+
 	if (selectDatas) {
+		console.log(selectDatas)
 		selectDatas.remove()
 	}
-	// cria uma nova tag select
+
 	selectDatas = document.createElement("select")
-	selectDatas.id = "selectDatas" // coloca o id no select
+	selectDatas.id = "selectDatas"
 	selectDatas.innerHTML = `<option value="">Selecione uma data</option>`
-	// extrai e organiza as datas das partidas que tem no JSON
+
+	const optionTodas = document.createElement("option")
+	optionTodas.value = "todas"
+	optionTodas.textContent = "Todas as Partidas"
+	selectDatas.appendChild(optionTodas)
+
 	const datasUnicas = [
 		...new Set(
 			partidas.map((partida) =>
@@ -322,28 +293,23 @@ function selecionarDataPesquisa(partidas) {
 			)
 		),
 	]
-	datasUnicas.sort() // Ordena as datas
-	// Adiciona cada data como uma opção no select
+	datasUnicas.sort()
+
 	datasUnicas.forEach((data) => {
-		const option = document.createElement("option") //cria uma nova opção
-		option.value = data // adiciona de valor a data que o forEach ta percorrendo
-		option.textContent = data // e como valor de texto tambem coloca a data
-		selectDatas.appendChild(option) // adciona a opção dentro do select
+		const option = document.createElement("option")
+		option.value = data
+		option.textContent = data
+		selectDatas.appendChild(option)
 	})
 
-	// Adiciona o select ao nav
 	nav.appendChild(selectDatas)
 
-	// usa um evento html para filtrar as as partidas por data.
-	// e algo parecido com o onclick(), mas aqui a gente ta usando change(), que dispara a função do evento quando o valor e selecionado
-	// o evento e colocado na tag select
 	selectDatas.addEventListener("change", (select) => {
-		const dataSelecionada = select.target.value // pega o valor da opções selecionadaa
+		const dataSelecionada = select.target.value
 		const partidasFiltradasPorData = partidas.filter(
 			(partida) =>
-				// esse date e um objeto de data, pra formatar as datas para um modo que estamos acostumados
 				new Date(partida.datetime).toLocaleDateString() ===
-				dataSelecionada // pega apenas as partidas que foram selecionadas
+				dataSelecionada
 		)
 		divPartidas.innerHTML = ""
 		partidasFiltradasPorData.forEach((partida) => {
@@ -352,19 +318,27 @@ function selecionarDataPesquisa(partidas) {
 				divPartidas.append(card)
 			}
 		})
+		if (dataSelecionada === "todas") {
+			partidas.forEach((partida) => {
+				const card = criarCard(partida)
+				if (card) {
+					divPartidas.appendChild(card)
+				}
+			})
+		}
 	})
 }
 
 function exibirPartidasNoMain(partidas) {
 	const container = document.getElementById("conteudoPagina")
-	container.innerHTML = "" // Limpa o conteúdo anterior
+	container.innerHTML = ""
 
 	partidas.forEach((partida) => {
 		const card = criarCard(partida)
 		container.appendChild(card)
 	})
 }
-// objeto com o nome de todos o paises em pt br
+
 const nomesPaises = {
 	Qatar: "Catar",
 	Ecuador: "Equador",
@@ -399,7 +373,7 @@ const nomesPaises = {
 	Uruguay: "Uruguai",
 	Korea: "Coreia do Sul",
 }
-// objeto javascript com todas as bandeiras
+
 const bandeirasPaises = {
 	QAT: "https://flagcdn.com/w320/qa.png",
 	ECU: "https://flagcdn.com/w320/ec.png",
