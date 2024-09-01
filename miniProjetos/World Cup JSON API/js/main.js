@@ -6,19 +6,14 @@ async function carregarConteudo(urlPage, urlScript) {
 					`Erro ${resposta.status}: ${resposta.statusText}`
 				)
 			}
-
 			return resposta.text()
 		})
 		.then((dados) => {
 			document.getElementById("conteudoPagina").innerHTML = dados
-
 			const script = document.createElement("script")
-
 			script.src = urlScript
-
 			document.body.appendChild(script)
 		})
-
 		.catch((error) => console.error("Erro ao carregar o conteúdo:", error))
 }
 
@@ -29,7 +24,6 @@ if (!localStorage.getItem("teams") || !localStorage.getItem("matches")) {
 				fetch("https://worldcupjson.net/teams"),
 				fetch("https://worldcupjson.net/matches"),
 			])
-
 			const teamsData = await teamsResponse.json()
 			const matchesData = await matchesResponse.json()
 
@@ -62,7 +56,6 @@ function encontrarTime(termoPesquisa, nomesPaises) {
 
 function sugerir(termoPesquisa) {
 	const termoLower = termoPesquisa.toLowerCase()
-
 	const sugestoes = []
 
 	for (const [key, value] of Object.entries(nomesPaises)) {
@@ -84,9 +77,7 @@ function mostrarSugestoes(sugestoes) {
 	sugestoes.forEach((sugestao) => {
 		const divSugestao = document.createElement("div")
 		divSugestao.classList.add("sugestao-item")
-
 		divSugestao.textContent = `${sugestao.nomePortugues} (${sugestao.nomeIngles})`
-
 		divSugestao.onclick = function () {
 			document.getElementById("barraPesquisa").value =
 				sugestao.nomePortugues
@@ -133,7 +124,6 @@ function criarCard(partida) {
 	).toLocaleTimeString()}</p>
 	</div>
 `
-
 	return card
 }
 
@@ -141,9 +131,7 @@ function pesquisar() {
 	const termoPesquisa = document
 		.getElementById("barraPesquisa")
 		.value.toLowerCase()
-
 	const timeEncontrado = encontrarTime(termoPesquisa, nomesPaises)
-
 	const conteudoPagina = document.getElementById("conteudoPagina")
 
 	if (!timeEncontrado) {
@@ -201,7 +189,6 @@ function pesquisar() {
                     
                 </tr>
             </thead>
-            <!-- o thead e tbody são o cabeçalho e corpo da tabela, detalhes de HTML semântico -->
             <tbody>
                 <!-- O map é para iterar em cada elemento do array e retornar uma string para cada linha HTML, fornecendo a posição de cada elemento -->
                 ${grupo.teams
@@ -211,7 +198,6 @@ function pesquisar() {
                     <tr class="${
 						index < 2 ? "classificado" : "desclassificado"
 					}">
-                        <!-- Acessa cada atributo do objeto, nome do time, partidas jogadas e etc. -->
                         <td><img src="${
 							bandeirasPaises[time.country] || "#"
 						}" width="20" height="15"><span>${
@@ -226,7 +212,6 @@ function pesquisar() {
                         <td class="center">${time.goals_against}</td>
                         <td class="center">${time.goal_differential}</td>
                     </tr>
-                    <!-- O join é para combinar todas as strings do map em uma só. Isso serve para imprimir tudo sem erro no HTML -->
                 `
 					)
 					.join("")}
@@ -311,6 +296,7 @@ function selecionarDataPesquisa(partidas) {
 				new Date(partida.datetime).toLocaleDateString() ===
 				dataSelecionada
 		)
+
 		divPartidas.innerHTML = ""
 		partidasFiltradasPorData.forEach((partida) => {
 			const card = criarCard(partida)
@@ -318,6 +304,7 @@ function selecionarDataPesquisa(partidas) {
 				divPartidas.append(card)
 			}
 		})
+
 		if (dataSelecionada === "todas") {
 			partidas.forEach((partida) => {
 				const card = criarCard(partida)
