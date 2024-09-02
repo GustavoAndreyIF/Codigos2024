@@ -89,44 +89,6 @@ function mostrarSugestoes(sugestoes) {
 	})
 }
 
-function criarCard(partida) {
-	const card = document.createElement("div")
-	card.classList.add("card")
-
-	const bandeiraTime1 = bandeirasPaises[partida.home_team.country]
-	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
-
-	card.innerHTML = `
-	<div id="${partida.datetime}">
-		<div class="team">
-		<!-- Adicona as bandeiras e nomes dos times.
-		e em seguida os gols marcados na partida, mais o lugar e horario. -->
-			<img width="20" height="15" src="${bandeiraTime1}"/>
-			<h3 class="${
-				partida.winner_code === partida.home_team.country
-					? "ganhador"
-					: "perdedor"
-			}">${nomesPaises[partida.home_team.name]}</h3>
-			<h3> vs </h3>
-			<h3 class="${
-				partida.winner_code === partida.home_team.country
-					? "ganhador"
-					: "perdedor"
-			}"${nomesPaises[partida.away_team.name]}></h3>
-			<img width="20" height="15" src="${bandeiraTime2}">
-		</div>
-		<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
-		<h4>Estadio</h4>
-		<p>${partida.venue} - ${partida.location}</p>
-		<h4>Data e Horario</h4>
-		<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
-		partida.datetime
-	).toLocaleTimeString()}</p>
-	</div>
-`
-	return card
-}
-
 function pesquisar() {
 	const termoPesquisa = document
 		.getElementById("barraPesquisa")
@@ -174,7 +136,7 @@ function pesquisar() {
 		timesFiltrados.forEach((grupo) => {
 			const tabela = document.createElement("table")
 			tabela.classList.add("tabela-grupos")
-			tabela.innerHTML = `
+			tabela.innerHTML = `		
             <thead>
                 <tr>
                     <th style="text-align: left">Equipe</th>
@@ -190,11 +152,9 @@ function pesquisar() {
                 </tr>
             </thead>
             <tbody>
-                <!-- O map é para iterar em cada elemento do array e retornar uma string para cada linha HTML, fornecendo a posição de cada elemento -->
                 ${grupo.teams
 					.map(
 						(time, index) => `
-                    <!-- Atribui uma classe CSS apenas nos times com o index abaixo de 2, ou seja, os times classificados. Caso a condição do if ternário não seja satisfeita, a classe é uma string vazia, ou seja, times com index acima de 2 não ganham estilização de classificado -->
                     <tr class="${
 						index < 2 ? "classificado" : "desclassificado"
 					}">
@@ -217,7 +177,11 @@ function pesquisar() {
 					.join("")}
             </tbody>
         `
-			conteudoPagina.appendChild(tabela)
+			const sessaoGrupo = document.createElement("div")
+			sessaoGrupo.classList.add("sessaoGrupo")
+			sessaoGrupo.innerHTML = `<div class="tituloGrupo">Grupo ${grupo.letter}</div>`
+			sessaoGrupo.appendChild(tabela)
+			conteudoPagina.appendChild(sessaoGrupo)
 		})
 	}
 
@@ -258,7 +222,6 @@ function selecionarDataPesquisa(partidas) {
 	let selectDatas = document.getElementById("selectDatas")
 
 	if (selectDatas) {
-		console.log(selectDatas)
 		selectDatas.remove()
 	}
 
@@ -316,14 +279,55 @@ function selecionarDataPesquisa(partidas) {
 	})
 }
 
-function exibirPartidasNoMain(partidas) {
-	const container = document.getElementById("conteudoPagina")
-	container.innerHTML = ""
+function criarCard(partida) {
+	const card = document.createElement("div")
+	card.classList.add("card")
 
-	partidas.forEach((partida) => {
-		const card = criarCard(partida)
-		container.appendChild(card)
-	})
+	const bandeiraTime1 = bandeirasPaises[partida.home_team.country]
+	const bandeiraTime2 = bandeirasPaises[partida.away_team.country]
+
+	card.innerHTML = `
+	<div id="${partida.datetime}">
+		<div class="team">
+			<img width="20" height="15" src="${bandeiraTime1}"/>
+			<h3 class="${
+				partida.winner_code === partida.home_team.country
+					? "ganhador"
+					: "perdedor"
+			}">${nomesPaises[partida.home_team.name]}</h3>
+			<h3> vs </h3>
+			<h3 class="${
+				partida.winner_code === partida.home_team.country
+					? "ganhador"
+					: "perdedor"
+			}"${nomesPaises[partida.away_team.name]}></h3>
+			<img width="20" height="15" src="${bandeiraTime2}">
+		</div>
+		<p>${partida.home_team.goals} - ${partida.away_team.goals}</p>
+		<h4>Estadio</h4>
+		<p>${partida.venue} - ${partida.location}</p>
+		<h4>Data e Horario</h4>
+		<p>${new Date(partida.datetime).toLocaleDateString()} - ${new Date(
+		partida.datetime
+	).toLocaleTimeString()}</p>
+		<button onclick="carregarDetalhesPartida('${partida.id}')">Ver Detalhes</button>
+	</div>
+	`
+	return card
+}
+
+async function carregarDetalhesPartida(partidaId) {
+	const url = `https://worldcupjson.net/matches/${partidaId}`
+	try {
+		const resposta = await fetch(url)
+		if (!resposta.ok) {
+			throw new Error(`Erro ${resposta.status}: ${resposta.statusText}`)
+		}
+		const partida = await resposta.json()
+		console.log(partida)
+	} catch (error) {
+		console.error("Erro ao carregar os detalhes da partida:", error)
+	}
 }
 
 const nomesPaises = {
