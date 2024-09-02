@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Pop-Up Example</title>
-		<style>
-			/* Estilo para o fundo do pop-up */
-			.popup {
-				display: none; /* Oculta o pop-up por padrão */
-				position: fixed;
-				left: 0;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(0, 0, 0, 0.5);
-				justify-content: center;
-				align-items: center;
-			}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pop-Up Example</title>
+    <style>
+        /* Estilo para o fundo do pop-up */
+        .popup {
+            display: none; /* Oculta o pop-up por padrão */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
 
-			/* Estilo para o conteúdo do pop-up */
-			.popup-content {
-				background: #fff;
-				padding: 20px;
-				border-radius: 5px;
-				width: 80%;
-				max-width: 500px;
-				position: relative;
-			}
+        /* Estilo para o conteúdo do pop-up */
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+        }
 
-			/* Estilo para o botão de fechar */
-			.close-btn {
-				position: absolute;
-				top: 10px;
-				right: 10px;
-				font-size: 20px;
-				cursor: pointer;
-			}
-		</style>
-	</head>
-	<body>
-		oifahifhuiafbuuiwfbafbiufbfuasbdifub
-		<!-- Botão para abrir o pop-up -->
-		<button id="openPopup">Open Pop-Up</button>
+        /* Estilo para o botão de fechar */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão para abrir o pop-up -->
+    <button id="openPopup">Open Pop-Up</button>
 
-		<!-- Estrutura do pop-up -->
-		<div id="popup" class="popup">
-			<div class="popup-content">
-				<span id="closePopup" class="close-btn">&times;</span>
-				<h2>Pop-Up Title</h2>
-				<p>This is a simple pop-up message.</p>
-			</div>
-		</div>
-		afuaishdfushdfouishdpfuiohfuewap
-		<script src="testeJS.js"></script>
-	</body>
+    <!-- Estrutura do pop-up -->
+    <div id="popup" class="popup">
+        <div id="popup-content" class="popup-content">
+            <span id="closePopup" class="close-btn">&times;</span>
+            <!-- O conteúdo do pop-up será inserido aqui pelo JavaScript -->
+        </div>
+    </div>
+
+    <!-- Inclua o script JavaScript -->
+    <script src="../testeJS.js"></script>
+</body>
 </html>

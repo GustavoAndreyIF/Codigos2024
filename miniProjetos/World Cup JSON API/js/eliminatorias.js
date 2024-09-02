@@ -48,7 +48,12 @@ function selecionarData() {
 
 	const select = document.createElement("select")
 	select.id = "selectDatas"
-	select.innerHTML = "<option value=''>Todas as datas</option>"
+	select.innerHTML = "<option value=''>Selecione uma datas</option>"
+
+	const optionTodas = document.createElement("option")
+	optionTodas.value = "todas"
+	optionTodas.textContent = "Todas as Partidas"
+	select.appendChild(optionTodas)
 
 	let partidas = JSON.parse(localStorage.getItem("matches")) || fetchJogos()
 	const datasUnicas = [
@@ -67,6 +72,9 @@ function selecionarData() {
 	select.addEventListener("change", () => {
 		const dataSelecionada = select.value
 		exibirPartidas(dataSelecionada)
+		if (dataSelecionada === "todas") {
+			exibirPartidas()
+		}
 	})
 }
 
