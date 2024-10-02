@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Questão 2 - Detalhes do Jogo</title>
+	</head>
+	<body>
+		<h1>Buscar Detalhes do Jogo</h1>
+
+		<!-- label e uma tag que fica atrelada a outra como um texto, tipo um texto -->
+		<label for="numeroSelecionado">Digite um número de 1 a 64:</label><br />
+		<input type="number" id="numeroSelecionado" />
+		<!-- executa a função do javascript para exibir os detalhes da partida -->
+		<button id="fetchGame" onclick="exibir()">Buscar Jogo</button>
+
+		<!-- O dados seram exibidos aqui -->
+		<div id="exibirDetalhes"></div>
+	</body>
+	<script src="questao2.js"></script>
+</html>

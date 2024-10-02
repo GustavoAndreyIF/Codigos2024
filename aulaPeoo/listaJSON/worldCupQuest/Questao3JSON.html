@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Jogos da Copa do Mundo</title>
+	</head>
+	<body>
+		<h1>Selecione um time para ver seus jogos</h1>
+
+		<!-- Dropdown para selecionar a equipe -->
+		<select id="teamSelect" onchange="buscarJogos()">
+			<option value="">Selecione um time</option>
+			<!-- As opções dos times serão carregadas aqui pelo JavaScript -->
+		</select>
+
+		<!-- Div onde os resultados dos jogos serão exibidos -->
+		<div id="resultados"></div>
+
+		<!-- Carregando o script externo de JavaScript -->
+		<script src="Questao3JSON.js"></script>
+	</body>
+</html>
