@@ -12,42 +12,44 @@ class livroGS {
     descricao(): void{
         let descricao: string = `
         Descrição
-        _Titulo: ${this._titulo}
-        _Autor: ${this._autor}
+        Titulo: ${this._titulo}
+        Autor: ${this._autor}
         Preço: ${this._preco}
         `
         return console.log(descricao)
-    }
+    };
     get titulo(): string{
         return this._titulo 
-    }
+    };
     set titulo(novoTitulo: string){
         this._titulo = novoTitulo
-    }
+    };
 
 
     get autor(): string{
         return this._autor 
-    }
+    };
     set autor(novoAutor: string){
         this._autor = novoAutor
-    }
+    };
 
 
     get preco(): number{
         return this._preco
-    }
+    };
     set preco(novoPreco: number){
-        this.preco = novoPreco
-    }
+        this._preco = novoPreco
+    };
 
 
 };
 
-const livro02 = new livro("It: A coisa", "Stephen King", 78.99)
+const livro02 = new livroGS("It: A coisa", "Stephen King", 78.99);
 
-livro01.descricao()
+livro02.descricao();
 
-livro02.titulo = "titulo01"
-livro02.autor = "autor01"
-livro02.preco = 12.34
+livro02.titulo = "titulo01";
+livro02.autor = "autor01";
+livro02.preco = 12.34;
+
+livro02.descricao();
