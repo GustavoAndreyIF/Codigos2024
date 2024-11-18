@@ -6,7 +6,7 @@ class Funcionarios {
     ){}
 }
 
-class Gerente extends Funcionarios {
+class Gerentes extends Funcionarios {
 
     constructor(
         _nome: string,
@@ -20,5 +20,5 @@ class Gerente extends Funcionarios {
     }
 }
 
-const gerente1 = new Gerente("Jão", 2000, 500)
+const gerente1 = new Gerentes("Jão", 2000, 500)
 gerente1.calcularSalarioTotal()
