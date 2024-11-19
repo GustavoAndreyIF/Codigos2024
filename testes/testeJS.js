@@ -1,6 +1,6 @@
 const myArrowFunction = (param1, param2) => {
-    // Function body
-    return param1 + param2;
+	// Function body
+	return param1 + param2;
 };
 
 // Example usage

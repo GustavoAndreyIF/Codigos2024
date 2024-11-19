@@ -1,0 +1,48 @@
+{
+	// Editor settings -----------------------------------------------------------
+	"editor.defaultFormatter": "esbenp.prettier-vscode", // Usa o prettier como formatador padrão
+	"editor.fontFamily": "JetBrains Mono", // Define a fonte do editor
+	"editor.fontLigatures": true, // Ativa as ligaduras de fonte (==, ===, !=, <=, >= e etc)
+	"editor.fontSize": 14, // Define o tamanho da fonte
+	"editor.formatOnSave": true, // Formata o código ao salvar
+	"editor.lineHeight": 1.6, // Define a altura da linha
+	"editor.minimap.enabled": false, // Desativa o minimap
+	"editor.rulers": [80, 120], // Adiciona linhas verticais para ajudar a manter o código dentro do limite de caracteres
+	"editor.scrollbar.horizontalScrollbarSize": 6, // Define o tamanho da barra de rolagem horizontal
+	"editor.scrollbar.verticalScrollbarSize": 6, // Define o tamanho da barra de rolagem vertical
+	"editor.insertSpaces": true, // Insere espaços em vez de tabulações
+	"editor.tabSize": 4, // Define o tamanho da tabulação
+	// Explorer settings ---------------------------------------------------------
+	"explorer.compactFolders": false, // Desativa a compactação de pastas
+	"explorer.confirmDelete": false, // Desativa a confirmação de exclusão de arquivos
+	"explorer.confirmDragAndDrop": false, // Desativa a confirmação de arrastar e soltar
+	// Files settings ------------------------------------------------------------
+	"files.autoSave": "afterDelay", // Salva automaticamente os arquivos após um atraso
+	// Git settings --------------------------------------------------------------
+	"git.autofetch": true, // Atualiza automaticamente o repositório Git
+	"git.confirmSync": false, // Desativa a confirmação de sincronização
+	"git.enableSmartCommit": true, // Ativa o commit inteligente
+	// terminal settings ---------------------------------------------------------
+	"terminal.integrated.fontFamily": "jetbrains mono", // Define a fonte do terminal
+	// window settings -----------------------------------------------------------
+	"window.commandCenter": false, // Desativa o centro de comando
+	"window.customTitleBarVisibility": "auto", // Define a visibilidade da barra de título personalizada
+	// workbench settings --------------------------------------------------------
+	"workbench.activityBar.location": "top", // Define a localização da barra de atividades
+	"workbench.colorTheme": "Min Dark", // Define o tema de cores
+	"workbench.editor.labelFormat": "short", // Define o formato do rótulo do editor
+	"workbench.editor.showTabs": "multiple", // Mostra várias guias
+	"workbench.iconTheme": "material-icon-theme", // Define o tema de ícones
+	"workbench.layoutControl.enabled": false, // Desativa o layout do controle
+	"workbench.productIconTheme": "material-product-icons", // Define o tema de ícones do produto
+	"workbench.startupEditor": "none", // Define o editor de inicializaçãoS
+	// Languege settings ---------------------------------------------------------
+	"javascript.updateImportsOnFileMove.enabled": "always", // Atualiza os imports ao mover arquivos
+	"typescript.updateImportsOnFileMove.enabled": "always", // Atualiza os imports ao mover arquivos
+	// Prettier settings ---------------------------------------------------------
+	"prettier.tabWidth": 4, // Define a largura da guia
+	"prettier.useTabs": true, // Usa guias em vez de espaços
+	"prettier.printWidth": 88, // Define a largura máxima da linha
+	"prettier.semi": true, // Remove ponto e vírgula no final de cada instrução
+	"prettier.arrowParens": "always" // Adiciona parênteses em torno de argumentos de seta
+}
