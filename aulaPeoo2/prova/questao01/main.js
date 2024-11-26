@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// Colocar .TS no final do nome dos arquivos caso o runtime for o Deno
+var funcionario_1 = require("./funcionario");
+var empresa_1 = require("./empresa");
+var gerente_1 = require("./gerente");
+var empresa1 = new empresa_1.Empresa("Tech Soluções");
+var funcionario1 = new funcionario_1.Funcionario("funcionario1", "cargo1", 100);
+var funcionario2 = new funcionario_1.Funcionario("funcionario2", "cargo2", 200);
+var funcionario3 = new funcionario_1.Funcionario("funcionario3", "cargo3", 300);
+var gerente1 = new gerente_1.Gerente(1, "gerente1", "cargo11", 1000);
+var gerente2 = new gerente_1.Gerente(1, "gerente2", "cargo12", 2000);
+empresa1.adicionarFuncionario(funcionario1);
+empresa1.adicionarFuncionario(funcionario2);
+empresa1.adicionarFuncionario(funcionario3);
+empresa1.adicionarFuncionario(gerente1);
+empresa1.adicionarFuncionario(gerente2);
+empresa1.listarFuncionarios();
+funcionario1.aplicarAumento(1.10);
+funcionario2.aplicarAumento(1.15);
+gerente1.aplicarBonus(1.25);
+gerente2.aplicarBonus(1.35);
