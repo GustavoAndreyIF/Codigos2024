@@ -1,9 +1,9 @@
 export class Filme {
     constructor(
-        protected _nome: string,
-        protected _diretor: string,
-        protected _anoLancamento: number,
-        protected _avaliacoes: number[] = []
+        public _nome: string,
+        public _diretor: string,
+        public _anoLancamento: number,
+        public _avaliacoes: number[] = []
     ){}
 
     adicionarAvaliacao(avaliacao: number): void {
