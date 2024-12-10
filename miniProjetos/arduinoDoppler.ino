@@ -1,4 +1,4 @@
-#include "Ultrasonic.h"
+#include <stdio.h>
 
 int trigger = 10;
 int echo = 9;
