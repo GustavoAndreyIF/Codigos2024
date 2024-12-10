@@ -1,3 +1,5 @@
+#include "Ultrasonic.h"
+
 int trigger = 10;
 int echo = 9;
 int r = 5;
